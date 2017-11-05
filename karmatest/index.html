@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!-- 首先把systemjs引进来 -->
+    <script src="https://cdn.bootcss.com/systemjs/0.20.19/system.js"></script>
+</head>
+<body>
+    <script>
+        /**
+         * [SystemJS.config  SystemJS的配置文件]
+         * [baseURL ]
+         * [map     ]
+         * @type {String}
+         */
+        SystemJS.config({
+            baseURL:'./',
+            transpiler:'plugin-babel',
+            map:{
+                'plugin-babel':'node_modules/systemjs-plugin-babel/plugin-babel.js',
+                'systemjs-babel-build':'node_modules/systemjs-plugin-babel/systemjs-babel-browser.js'
+            }
+        });
+        /**
+         * [用SystemJS去加载我们的es6模块文件]
+         * @param  {[type]} compoent [description]
+         * @return {[type]}          [description]
+         */
+        SystemJS.import('./src/indexclass.js').then(compoent=>{
+            /**
+             * [compoent component 是我们indexclass文件export的方法此处我们export了个create方法]
+             * [create   次方法是一个类似的工厂函数，用于创建出一个一个的实例]
+             * @type {[type]}
+             */
+            // 实例化一个zhangsan
+            var zhangsan = compoent.create('zhangsan')
+            // 实例化一个lisi
+            var lisi = compoent.create('lisi')
+            console.log(zhangsan.speak())
+            console.log(zhangsan.speak())
+            console.log(zhangsan.speak())
+            console.log(lisi.speak())
+        })
+    </script>
+</body>
+</html>
